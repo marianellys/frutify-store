@@ -1,10 +1,11 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 declare var baguetteBox: any;
 
 @Component({
   selector: 'app-gallery',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './gallery.html',
   styleUrl: './gallery.css',
 })

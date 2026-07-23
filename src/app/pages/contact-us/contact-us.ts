@@ -1,10 +1,12 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 declare var $: any;
 
 @Component({
   selector: 'app-contact-us',
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './contact-us.html',
   styleUrl: './contact-us.css',
 })
