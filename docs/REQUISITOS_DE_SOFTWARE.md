@@ -52,6 +52,14 @@ Frutify es una aplicación web de e-commerce para la venta de frutas y vegetales
 - **RF-031:** El sistema debe tener un header con navegación principal
 - **RF-032:** El sistema debe tener un footer con información de contacto
 
+### 2.8 Backend y Persistencia (API PHP + MySQL)
+- **RF-033:** El backend debe exponer endpoints HTTP en JSON vía PHP (`backend/`)
+- **RF-034:** El backend debe persistir usuarios, productos, pedidos y detalle_pedido en MySQL
+- **RF-035:** El backend debe usar sentencias preparadas (PDO) para evitar inyección SQL
+- **RF-036:** El catálogo de productos debe cargarse desde `productos.php` (con respaldo mock si el API no responde)
+- **RF-037:** El frontend debe crear pedidos mediante `pedidos.php` y consultar el historial por usuario
+- **RF-038:** El frontend debe consultar los ítems de un pedido mediante `detalle_pedido.php`
+
 ## 3. Requisitos No Funcionales
 
 ### 3.1 Performance
@@ -66,8 +74,8 @@ Frutify es una aplicación web de e-commerce para la venta de frutas y vegetales
 - **RNF-007:** La navegación debe ser intuitiva y fácil de usar
 
 ### 3.3 Seguridad
-- **RNF-008:** Las contraseñas no deben almacenarse en texto plano
-- **RNF-009:** Los datos del usuario deben persistir solo en localStorage (versión demo)
+- **RNF-008:** Las contraseñas no deben almacenarse en texto plano (bcrypt en el servidor)
+- **RNF-009:** El backend debe validar los inputs recibidos además de la validación en el frontend
 - **RNF-010:** El sistema debe validar inputs de usuario en el frontend
 
 ### 3.4 Compatibilidad
@@ -90,16 +98,34 @@ Frutify es una aplicación web de e-commerce para la venta de frutas y vegetales
 - **Iconos:** FontAwesome 7.2.0
 - **Build:** Angular CLI 20.1.5
 
+### Backend
+- **Lenguaje:** PHP 8+ con PDO (prepared statements)
+- **Base de datos:** MySQL 8
+- **Autenticación:** bcrypt (`password_hash` / `password_verify`)
+- **Formato:** JSON con cabeceras CORS
+
 ### Estructura del Proyecto
 ```
-src/app/
-├── auth/              # Autenticación (login, register)
-├── pages/             # Páginas principales
-├── shared/            # Componentes compartidos
-├── services/          # Servicios de negocio
-├── app.config.ts      # Configuración de la app
-├── app.routes.ts      # Rutas de la aplicación
-└── app.ts             # Componente principal
+frutify/
+├── frontend/               # Aplicación Angular
+│   └── src/app/
+│       ├── auth/           # Autenticación (login, register)
+│       ├── pages/          # Páginas principales
+│       ├── shared/         # Componentes compartidos
+│       ├── services/       # Servicios de negocio (auth, cart, product, order)
+│       ├── environments/   # Configuración de entorno (apiUrl)
+│       ├── app.config.ts   # Configuración de la app
+│       ├── app.routes.ts   # Rutas de la aplicación
+│       └── app.ts          # Componente principal
+├── backend/                # API PHP + MySQL
+│   ├── conexion.php        # Conexión PDO y CORS
+│   ├── login.php           # POST - iniciar sesión
+│   ├── registro.php        # POST - registrar usuario
+│   ├── productos.php       # GET - catálogo de productos
+│   ├── pedidos.php         # GET/POST - pedidos
+│   ├── detalle_pedido.php  # GET - ítems de un pedido
+│   └── frutify.sql         # Esquema y datos iniciales de la BD
+└── docs/                   # Documentación del proyecto
 ```
 
 ## 5. Requisitos de Despliegue
@@ -110,17 +136,20 @@ src/app/
 
 ## 6. Limitaciones Actuales
 
-- **Backend:** Actualmente usa mock data y localStorage (sin backend real)
+- **Carrito y lista de deseos:** Persisten en localStorage (pendiente sincronización con el backend)
 - **Pagos:** No procesa pagos reales (solo simulación)
-- **Persistencia:** Los datos se pierden al limpiar el navegador
+- **Panel de administración:** Aún no implementado
 - **Email:** No envía emails de confirmación o recuperación
 
 ## 7. Roadmap Futuro
 
-- Integración con backend real (Node.js/Firebase)
-- Sistema de pagos integrado (Stripe/PayPal)
-- Autenticación con redes sociales
-- Panel de administración
-- Sistema de reviews y ratings
-- Notificaciones push
-- Carrito compartido entre dispositivos
+- [x] Estructura monorepo: `frontend/` (Angular) + `backend/` (PHP + MySQL)
+- [x] Registro e inicio de sesión contra el backend (`registro.php`, `login.php`)
+- [x] Catálogo de productos desde la API (`productos.php`)
+- [x] Creación de pedidos (`pedidos.php`, `detalle_pedido.php`)
+- [ ] Pagos reales (Stripe/PayPal)
+- [ ] Panel de administración para gestión de productos y pedidos
+- [ ] Sincronización del carrito en el backend
+- [ ] Autenticación con redes sociales
+- [ ] Sistema de reviews y ratings con persistencia
+- [ ] Notificaciones push

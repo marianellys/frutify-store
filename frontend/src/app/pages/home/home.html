@@ -1,0 +1,143 @@
+<div id="carouselHero" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active position-relative">
+            <img src="/images/inicio/banner-01.jpg" class="d-block w-100" style="height:100vh;object-fit:cover" alt="">
+            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background:rgba(0,0,0,0.5)">
+                <div class="container text-center text-white">
+                    <h1 class="display-3 fw-bold">Bienvenido a <br> Frutify</h1>
+                    <p class="lead pb-3">Productos frescos y de calidad, directo a tu hogar.</p>
+                    <button class="btn btn-warning btn-lg fw-bold text-white px-4 py-2 text-uppercase" (click)="goToShop()">Comprar Ahora</button>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item position-relative">
+            <img src="/images/inicio/banner-02.jpg" class="d-block w-100" style="height:100vh;object-fit:cover" alt="">
+            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background:rgba(0,0,0,0.5)">
+                <div class="container text-center text-white">
+                    <h1 class="display-3 fw-bold">Frescura Garantizada</h1>
+                    <p class="lead pb-3">Seleccionamos lo mejor para ti y tu familia.</p>
+                    <button class="btn btn-warning btn-lg fw-bold text-white px-4 py-2 text-uppercase" (click)="goToShop()">Ver Más</button>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item position-relative">
+            <img src="/images/inicio/banner-03.jpg" class="d-block w-100" style="height:100vh;object-fit:cover" alt="">
+            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background:rgba(0,0,0,0.5)">
+                <div class="container text-center text-white">
+                    <h1 class="display-3 fw-bold">Ofertas Especiales</h1>
+                    <p class="lead pb-3">Aprovecha nuestros descuentos en productos seleccionados.</p>
+                    <button class="btn btn-warning btn-lg fw-bold text-white px-4 py-2 text-uppercase" (click)="goToShop()">Ver Ofertas</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselHero" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselHero" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+    </button>
+</div>
+
+<div class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm">
+                    <img class="card-img-top" src="/images/inicio/categories_img_01.avif" alt="">
+                    <div class="card-body text-center">
+                        <h5 class="fw-bold">Frutas Frescas</h5>
+                        <button class="btn btn-outline-dark" (click)="goToShop()">Ver más</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm">
+                    <img class="card-img-top" src="/images/inicio/categories_img_02.avif" alt="">
+                    <div class="card-body text-center">
+                        <h5 class="fw-bold">Verduras</h5>
+                        <button class="btn btn-outline-dark" (click)="goToShop()">Ver más</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm">
+                    <img class="card-img-top" src="/images/inicio/categories_img_03.jpeg" alt="">
+                    <div class="card-body text-center">
+                        <h5 class="fw-bold">Productos Orgánicos</h5>
+                        <button class="btn btn-outline-dark" (click)="goToShop()">Ver más</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="fw-bold">Productos Destacados</h1>
+            <p class="text-muted">Lo mejor de nuestra tienda para ti</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6" *ngFor="let product of featuredProducts">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="position-relative">
+                        <span class="badge bg-warning text-white position-absolute top-0 start-0 m-2" *ngIf="product.rating >= 4.5">Oferta</span>
+                        <span class="badge bg-success text-white position-absolute top-0 start-0 m-2" *ngIf="product.rating < 4.5">Nuevo</span>
+                        <img [src]="product.image" class="card-img-top" [alt]="product.name">
+                    </div>
+                    <div class="card-body text-center">
+                        <h6 class="fw-bold">{{ product.name }}</h6>
+                        <p class="fw-bold text-warning mb-0">${{ product.price }}</p>
+                        <p class="text-muted small">{{ product.description }}</p>
+                        <a [routerLink]="['/shop-detail', product.id]" class="btn btn-sm btn-dark mt-2">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="fw-bold text-uppercase">Últimas Noticias</h1>
+            <p class="text-muted">Entérate de lo último en Frutify</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="/images/inicio/blog-img.jpg" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="fw-bold">Beneficios de Comer Fresco</h5>
+                        <p class="text-muted small">Descubre por qué consumir frutas y verduras frescas mejora tu salud y bienestar.</p>
+                        <a href="#" class="btn btn-sm btn-outline-dark">Leer más</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="/images/inicio/blog-img-01.jpg" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="fw-bold">Temporada de Cítricos</h5>
+                        <p class="text-muted small">Aprovecha la temporada de naranjas, limones y pomelos al mejor precio.</p>
+                        <a href="#" class="btn btn-sm btn-outline-dark">Leer más</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <img src="/images/inicio/blog-img-02.jpg" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="fw-bold">Recetas Saludables</h5>
+                        <p class="text-muted small">Prepara deliciosas recetas con nuestros productos frescos de temporada.</p>
+                        <a href="#" class="btn btn-sm btn-outline-dark">Leer más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -18,8 +18,10 @@ Este documento describe las historias de usuario para la aplicación Frutify, un
 - El usuario debe confirmar la contraseña
 - El usuario debe aceptar los términos y condiciones
 - El sistema debe validar que las contraseñas coincidan
-- El sistema debe crear la cuenta y redirigir al home
+- El sistema debe crear la cuenta en la base de datos vía `registro.php` (backend PHP)
+- El sistema debe redirigir al home después del registro exitoso
 - El sistema debe mostrar un mensaje de error si el registro falla
+- El sistema debe mostrar un error si el email ya está registrado
 
 **Prioridad:** Alta  
 **Story Points:** 5
@@ -34,7 +36,7 @@ Este documento describe las historias de usuario para la aplicación Frutify, un
 **Criterios de Aceptación:**
 - El usuario debe poder ingresar email y contraseña
 - El usuario debe poder marcar "recordarme"
-- El sistema debe validar las credenciales
+- El sistema debe validar las credenciales contra la base de datos vía `login.php` (backend PHP)
 - El sistema debe mantener la sesión activa
 - El sistema debe redirigir al home después del login exitoso
 - El sistema debe mostrar un mensaje de error si las credenciales son incorrectas
@@ -68,6 +70,7 @@ Este documento describe las historias de usuario para la aplicación Frutify, un
 **Para** encontrar frutas y vegetales que desee comprar
 
 **Criterios de Aceptación:**
+- El sistema debe obtener el catálogo desde `productos.php` (backend PHP) con respaldo mock
 - El sistema debe mostrar productos en una grilla
 - Cada producto debe mostrar imagen, nombre y precio
 - El sistema debe mostrar la categoría del producto
@@ -252,6 +255,7 @@ Este documento describe las historias de usuario para la aplicación Frutify, un
 - El usuario debe ingresar datos de envío
 - El usuario debe seleccionar método de pago
 - El sistema debe validar todos los campos
+- El sistema debe guardar el pedido en la base de datos (`pedidos.php` y `detalle_pedido.php`)
 - El sistema debe mostrar confirmación de pedido
 - El carrito debe vaciarse después de la compra
 
@@ -285,9 +289,10 @@ Este documento describe las historias de usuario para la aplicación Frutify, un
 **Para** rastrear mis compras anteriores
 
 **Criterios de Aceptación:**
+- El sistema debe obtener el historial desde `pedidos.php` (backend PHP)
 - El sistema debe mostrar lista de pedidos anteriores
 - Cada pedido debe mostrar fecha y monto
-- El usuario debe poder ver detalles de cada pedido
+- El usuario debe poder ver detalles de cada pedido (`detalle_pedido.php`)
 - El sistema debe mostrar estado del pedido
 
 **Prioridad:** Baja  

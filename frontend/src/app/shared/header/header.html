@@ -1,0 +1,70 @@
+<!-- <div class="bg-dark py-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 text-center text-md-start">
+                <span class="text-white me-3"><i class="fas fa-phone me-1"></i> +11 900 800 100</span>
+                <span class="text-white"><i class="fas fa-envelope me-1"></i> info@frutify.com</span>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <a href="#" class="text-white text-decoration-none me-3"><i class="fas fa-user me-1"></i> Mi Cuenta</a>
+                <a href="/contact-us" class="text-white text-decoration-none"><i class="fas fa-headset me-1"></i> Contacto</a>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<header class="border-bottom bg-white sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+            <a class="navbar-brand" href="/"><img src="/logo.png"
+                    style="height:60px" alt="Frutify"></a>
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbar-menu"
+                aria-controls="navbar-menu" aria-expanded="false"
+                aria-label="Menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-menu">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item" routerLinkActive="active"><a
+                            class="nav-link fw-semibold text-uppercase px-3"
+                            routerLink="/">Inicio</a></li>
+                    <li class="nav-item" routerLinkActive="active" *ngIf="authService.isLoggedIn()"><a
+                            class="nav-link fw-semibold text-uppercase px-3"
+                            routerLink="/shop">Tienda</a></li>
+                    <li class="nav-item" routerLinkActive="active" *ngIf="authService.isLoggedIn()"><a
+                            class="nav-link fw-semibold text-uppercase px-3"
+                            routerLink="/cart">Carrito</a></li>
+                    <li class="nav-item" routerLinkActive="active" *ngIf="!authService.isLoggedIn()"><a
+                            class="nav-link fw-semibold text-uppercase px-3"
+                            routerLink="/auth/login">Iniciar Sesión</a></li>
+                    <li class="nav-item" routerLinkActive="active" *ngIf="!authService.isLoggedIn()"><a
+                            class="nav-link fw-semibold text-uppercase px-3"
+                            routerLink="/auth/register">Registrarse</a></li>
+                    <li class="nav-item dropdown" *ngIf="authService.isLoggedIn()">
+                        <a class="nav-link dropdown-toggle fw-semibold text-uppercase px-3"
+                            href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            (click)="$event.preventDefault()">
+                            {{ authService.getCurrentUser()?.name || 'Usuario' }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" routerLink="/cart">Carrito</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" (click)="authService.logout()">Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- <ul class="navbar-nav ms-3">
+                    <li class="nav-item position-relative">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span
+                                class="badge bg-warning text-white position-absolute top-0 start-100 translate-middle rounded-pill">3</span>
+                        </a>
+                    </li>
+                </ul> -->
+            </div>
+        </div>
+    </nav>
+</header>

@@ -168,9 +168,10 @@ Frutify es una aplicación web que permite a los usuarios navegar, seleccionar y
 
 ### 8.1 Restricciones Técnicas
 - Uso de Angular 20+ como framework principal
+- Backend en PHP 8+ con PDO y MySQL 8
 - Compatibilidad con Bootstrap 5 para estilos
 - Uso de TypeScript para type safety
-- Despliegue en Firebase Hosting
+- Despliegue del frontend en Firebase Hosting
 
 ### 8.2 Restricciones de Tiempo
 - MVP inicial en 4 semanas
@@ -183,7 +184,8 @@ Frutify es una aplicación web que permite a los usuarios navegar, seleccionar y
 - Infraestructura en la nube con costos variables
 
 ### 8.4 Restricciones de Alcance
-- Fase inicial sin backend real (mock data)
+- Backend PHP + MySQL para autenticación, catálogo y pedidos
+- Carrito y lista de deseos en localStorage (sincronización pendiente)
 - Sin integración de pagos reales (simulación)
 - Sin sistema de inventario automatizado
 - Sin integración con proveedores externos
@@ -193,8 +195,9 @@ Frutify es una aplicación web que permite a los usuarios navegar, seleccionar y
 ### 9.1 Riesgos Técnicos
 | Riesgo | Probabilidad | Impacto | Mitigación |
 |--------|--------------|---------|------------|
+| Backend PHP/MySQL no disponible | Media | Alta | Respaldo mock en el frontend, verificación de conexión |
 | Problemas de performance en móviles | Media | Alta | Optimización progresiva, testing en múltiples dispositivos |
-| Bugs en integración de localStorage | Baja | Media | Testing exhaustivo, implementación de fallback |
+| Bugs en integración de la API | Media | Media | Sentencias preparadas (PDO), pruebas de endpoints, logging |
 | Incompatibilidad con navegadores antiguos | Baja | Baja | Polyfills, detección de características |
 
 ### 9.2 Riesgos de Negocio
@@ -220,16 +223,16 @@ Frutify es una aplicación web que permite a los usuarios navegar, seleccionar y
 - Checkout básico
 - Navegación principal
 
-### 10.2 Fase 2: Mejoras (Semanas 5-8)
-- Búsqueda y filtrado avanzado
-- Lista de deseos
-- Historial de pedidos
-- Gestión de perfil
-- Optimización de performance
+### 10.2 Fase 2: Backend y Persistencia (Semanas 5-8)
+- Estructura monorepo `frontend/` + `backend/`
+- API PHP: registro, login, productos, pedidos y detalle_pedido
+- Base de datos MySQL (usuarios, productos, pedidos, detalle_pedido)
+- Conexión de los servicios de Angular al API
+- Lista de deseos e historial de pedidos
 
 ### 10.3 Fase 3: Integraciones (Semanas 9-12)
-- Backend real
-- Pagos integrados
+- Pagos integrados (Stripe/PayPal)
+- Sincronización del carrito en el backend
 - Sistema de notificaciones
 - Panel de administración
 - Analytics

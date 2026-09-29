@@ -1,6 +1,6 @@
 # Frutify 🍎
 
-Plataforma de e-commerce para la venta de frutas y vegetales frescos. Desarrollada con Angular 20, Bootstrap 5 y TypeScript.
+Plataforma de e-commerce para la venta de frutas y vegetales frescos. Frontend con Angular 20, Bootstrap 5 y TypeScript; backend con PHP y MySQL.
 
 ## 📋 Descripción del Proyecto
 
@@ -42,57 +42,48 @@ Frutify es una aplicación web moderna que permite a los usuarios navegar, selec
 }
 ```
 
+### Backend
+- **Lenguaje**: PHP 8+ con PDO (prepared statements)
+- **Base de datos**: MySQL 8 (tablas `usuarios`, `productos`, `pedidos`, `detalle_pedido`)
+- **Autenticación**: `password_hash()` / `password_verify()` (bcrypt)
+- **Respuestas**: JSON con CORS
+
 ## 📁 Estructura del Proyecto
 
 ```
 frutify/
-├── src/
-│   ├── app/
-│   │   ├── auth/                    # Autenticación
-│   │   │   ├── login/
-│   │   │   │   ├── login.ts
-│   │   │   │   ├── login.html
-│   │   │   │   └── login.css
-│   │   │   └── register/
-│   │   │       ├── register.ts
-│   │   │       ├── register.html
-│   │   │       └── register.css
-│   │   ├── pages/                   # Páginas principales
-│   │   │   ├── home/               # Página de inicio
-│   │   │   ├── about/              # Página "Nosotros"
-│   │   │   ├── shop/               # Tienda de productos
-│   │   │   ├── shop-detail/        # Detalle de producto
-│   │   │   ├── cart/               # Carrito de compras
-│   │   │   ├── checkout/           # Proceso de pago
-│   │   │   ├── wishlist/           # Lista de deseos
-│   │   │   ├── my-account/         # Mi cuenta
-│   │   │   ├── gallery/            # Galería de productos
-│   │   │   └── contact-us/         # Página de contacto
-│   │   ├── shared/                  # Componentes compartidos
-│   │   │   ├── header/             # Header con navegación
-│   │   │   ├── footer/             # Footer de la aplicación
-│   │   │   ├── scroll-top/         # Botón de scroll arriba
-│   │   │   └── social-networks/    # Redes sociales
-│   │   ├── services/                # Servicios de negocio
-│   │   │   ├── auth.service.ts     # Servicio de autenticación
-│   │   │   ├── cart.service.ts     # Servicio del carrito
-│   │   │   └── product.service.ts  # Servicio de productos
-│   │   ├── app.config.ts           # Configuración de la app
-│   │   ├── app.routes.ts           # Rutas de la aplicación
-│   │   ├── app.ts                  # Componente principal
-│   │   ├── app.html                # Template principal
-│   │   └── app.css                 # Estilos globales
-│   ├── index.html                  # HTML principal
-│   ├── main.ts                     # Punto de entrada
-│   └── styles.css                  # Estilos globales
-├── docs/                           # Documentación
-│   ├── REQUISITOS_DE_SOFTWARE.md   # Requisitos funcionales y no funcionales
-│   ├── HISTORIAS_DE_USUARIO.md     # Historias de usuario del proyecto
-│   └── DOCUMENTO_DE_VISION.md      # Visión y roadmap del proyecto
-├── public/                         # Archivos estáticos
-├── angular.json                    # Configuración de Angular
-├── package.json                    # Dependencias del proyecto
-└── README.md                       # Este archivo
+├── frontend/                      # Aplicación Angular
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── auth/             # Autenticación (login, register)
+│   │   │   ├── pages/            # Páginas principales (home, shop, cart, checkout...)
+│   │   │   ├── shared/           # Componentes compartidos (header, footer...)
+│   │   │   ├── services/         # Servicios de negocio (auth, cart, product, order)
+│   │   │   ├── environments/     # Configuración de entorno (apiUrl)
+│   │   │   ├── app.config.ts     # Configuración de la app
+│   │   │   ├── app.routes.ts     # Rutas de la aplicación
+│   │   │   ├── app.ts            # Componente principal
+│   │   │   └── app.css           # Estilos globales
+│   │   ├── index.html            # HTML principal
+│   │   ├── main.ts               # Punto de entrada
+│   │   └── styles.css            # Estilos globales
+│   ├── public/                   # Archivos estáticos (imágenes, php)
+│   ├── angular.json              # Configuración de Angular
+│   ├── firebase.json             # Configuración de Firebase Hosting
+│   └── package.json              # Dependencias del frontend
+├── backend/                      # API PHP + MySQL
+│   ├── conexion.php              # Conexión PDO y configuración
+│   ├── login.php                 # POST - iniciar sesión
+│   ├── registro.php              # POST - registrar usuario
+│   ├── productos.php             # GET - catálogo de productos
+│   ├── pedidos.php               # GET/POST - pedidos de usuario
+│   ├── detalle_pedido.php        # GET - ítems de un pedido
+│   └── frutify.sql               # Esquema + datos iniciales de la BD
+├── docs/                         # Documentación del proyecto
+│   ├── REQUISITOS_DE_SOFTWARE.md
+│   ├── HISTORIAS_DE_USUARIO.md
+│   └── DOCUMENTO_DE_VISION.md
+└── README.md                     # Este archivo
 ```
 
 ## 🚀 Instalación y Configuración
@@ -100,13 +91,15 @@ frutify/
 ### Prerrequisitos
 - Node.js (v18 o superior)
 - npm o yarn
+- PHP 8+ y MySQL (para el backend)
 
 ### Pasos de instalación
 
+**Frontend**
 1. **Clonar el repositorio**
 ```bash
 git clone <url-del-repositorio>
-cd frutify
+cd frutify/frontend
 ```
 
 2. **Instalar dependencias**
@@ -124,35 +117,53 @@ ng serve
 http://localhost:4200/
 ```
 
+**Backend**
+1. **Crear la base de datos** (importa `backend/frutify.sql` en phpMyAdmin o vía consola):
+```bash
+mysql -u root -p < backend/frutify.sql
+```
+
+2. **Ajustar credenciales** en `backend/conexion.php` si tu MySQL no usa `root` sin contraseña.
+
+3. **Iniciar el servidor PHP de desarrollo** desde la raíz del proyecto:
+```bash
+php -S localhost:8000 -t backend
+```
+
+4. **Probar los endpoints**:
+```
+GET  http://localhost:8000/productos.php
+POST http://localhost:8000/registro.php
+POST http://localhost:8000/login.php
+```
+
 ## 📱 Rutas de la Aplicación
 
 | Ruta | Componente | Descripción |
 |------|------------|-------------|
 | `/` | Home | Página de inicio con banner promocional |
-| `/about` | About | Información sobre la empresa |
 | `/shop` | Shop | Catálogo de productos |
 | `/shop-detail` | ShopDetail | Detalle individual de producto |
 | `/cart` | Cart | Carrito de compras |
 | `/checkout` | Checkout | Proceso de pago |
-| `/my-account` | MyAccount | Gestión de cuenta de usuario |
-| `/wishlist` | Wishlist | Lista de deseos |
-| `/gallery` | Gallery | Galería de productos |
-| `/contact-us` | ContactUs | Formulario de contacto |
 | `/auth/login` | Login | Inicio de sesión |
 | `/auth/register` | Register | Registro de usuario |
+| `**` | - | Redirección al inicio |
 
 ## 🔧 Servicios
 
+Los servicios se comunican con el backend PHP mediante HTTP. La URL base se configura en `frontend/src/environments/environment.ts`.
+
 ### AuthService
-Gestiona la autenticación de usuarios con persistencia en localStorage.
-- `login(email, password)`: Inicia sesión
-- `register(name, email, password)`: Registra nuevo usuario
+Gestiona la autenticación contra `login.php` y `registro.php`, con sesión persistida en localStorage (bcrypt en el servidor).
+- `login(email, password)`: Inicia sesión (Observable)
+- `register(name, email, password)`: Registra nuevo usuario (Observable)
 - `logout()`: Cierra sesión
 - `isLoggedIn()`: Verifica estado de autenticación
 - `getCurrentUser()`: Obtiene usuario actual
 
 ### CartService
-Gestiona el carrito de compras con BehaviorSubject para reactividad.
+Gestiona el carrito de compras con BehaviorSubject para reactividad (persistencia en localStorage). Se convierte en pedido real vía `OrderService`.
 - `addToCart(item)`: Agrega producto al carrito
 - `removeFromCart(itemId)`: Elimina producto del carrito
 - `updateQuantity(itemId, quantity)`: Modifica cantidad
@@ -161,11 +172,29 @@ Gestiona el carrito de compras con BehaviorSubject para reactividad.
 - `clearCart()`: Vacía el carrito
 
 ### ProductService
-Gestiona el catálogo de productos con datos mock.
+Carga el catálogo desde `productos.php` (con datos mock como respaldo si el backend no responde).
+- `loadProducts()`: Recarga el catálogo desde la API
 - `getProducts()`: Obtiene todos los productos
 - `getProductById(id)`: Obtiene producto por ID
 - `getProductsByCategory(category)`: Filtra por categoría
 - `searchProducts(query)`: Busca productos
+
+### OrderService
+Se comunica con `pedidos.php` y `detalle_pedido.php`.
+- `getOrders(usuarioId)`: Obtiene el historial de pedidos
+- `createOrder(order)`: Crea un pedido con sus ítems
+- `getOrderDetails(pedidoId)`: Obtiene los ítems de un pedido
+
+## 🔌 Endpoints del Backend
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| POST | `/registro.php` | Registrar usuario (nombre, email, password) |
+| POST | `/login.php` | Iniciar sesión (email, password) |
+| GET | `/productos.php` | Catálogo de productos (filtros: `id`, `categoria`, `busqueda`) |
+| POST | `/pedidos.php` | Crear pedido (usuario_id, dirección, items) |
+| GET | `/pedidos.php?usuario_id=X` | Historial de pedidos del usuario |
+| GET | `/detalle_pedido.php?pedido_id=X` | Ítems de un pedido |
 
 ## 🎨 Diseño y Estilos
 
